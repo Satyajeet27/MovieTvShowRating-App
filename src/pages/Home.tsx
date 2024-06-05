@@ -9,10 +9,10 @@ export enum DisplayType {
 }
 
 const Home = () => {
-    const [page, setPage]= useState<number>(1)
+    const [page, setPage] = useState<number>(1)
     const [displayType, setDisplayType] = useState<DisplayType>(DisplayType.Movies)
-    const {data:movieData, isLoading:isLoadingMovies}= useQuery({queryKey:["movies",page],queryFn:()=>fetchMovies(page)})
-    const {data:tvShowData, isLoading:isLoadingTvShows}= useQuery({queryKey:["tvshows", page],queryFn:()=>fetchTvShows(page)})
+    const { data: movieData, isLoading: isLoadingMovies } = useQuery({ queryKey: ["movies", page], queryFn: () => fetchMovies(page) })
+    const { data: tvShowData, isLoading: isLoadingTvShows } = useQuery({ queryKey: ["tvshows", page], queryFn: () => fetchTvShows(page) })
     return (
         <div className="my-4">
             <div className="my-4">
@@ -22,20 +22,20 @@ const Home = () => {
                 </div>
             </div>
             <div className="flex justify-center my-2">
-            <div className="w-fit bg-slate-400 px-1 py-1">
-                <label className=" text-white" htmlFor="page">Page: </label>
-                <input className="text-center text-slate-600 focus:outline-none" type="number" min={1} max={10} value={page} onChange={e=>setPage(Number(e.target.value))} />
-            </div>
+                <div className="w-fit bg-slate-400 px-1 py-1">
+                    <label className=" text-white" htmlFor="page">Page: </label>
+                    <input className="text-center text-slate-600 focus:outline-none" type="number" min={1} max={10} value={page} onChange={e => setPage(Number(e.target.value))} />
+                </div>
             </div>
             <div className="">
                 {isLoadingMovies || isLoadingTvShows ? "Loading..." : (
                     <div>
-                        
-                    {displayType=== DisplayType.Movies ? <ColumnDisplay data={movieData.results} displayType={DisplayType.Movies} /> : <ColumnDisplay data={tvShowData.results} displayType={DisplayType.TvShows} />}
-                </div>
+
+                        {displayType === DisplayType.Movies ? <ColumnDisplay data={movieData.results} displayType={DisplayType.Movies} /> : <ColumnDisplay data={tvShowData.results} displayType={DisplayType.TvShows} />}
+                    </div>
                 )}
             </div>
-            
+
         </div>
     )
 }
